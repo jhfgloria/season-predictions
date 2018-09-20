@@ -1,0 +1,27 @@
+{
+  "name": "season-predictions",
+  "version": "0.0.1",
+  "description": "Premier league top 3 and top scorer predicitons app",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack-dev-server --mode development --hot --open",
+    "build": "webpack --mode production"
+  },
+  "keywords": [
+    "javascript",
+    "premier-league",
+    "football",
+    "predictions"
+  ],
+  "author": "jhfgloria",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-core": "6.26.3",
+    "babel-loader": "7.1.5",
+    "babel-preset-env": "1.7.0",
+    "html-webpack-plugin": "3.2.0",
+    "webpack": "4.16.4",
+    "webpack-cli": "3.1.0",
+    "webpack-dev-server": "^3.1.5"
+  }
+}
