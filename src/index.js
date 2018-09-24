@@ -1,6 +1,24 @@
 import League from './model/league.js';
 import Player from './model/player.js';
+import Router from './containers/router.js';
+import { goToHome, goToSeasonPredictions } from './services/routerService.js';
 import Team from './model/team.js';
+
+class TestComponent {
+  render() {
+    return document.createTextNode('test 1');
+  }
+}
+
+class TestComponent2 {
+  render() {
+    return document.createTextNode('test 2');
+  }
+}
+
+const renderDom = (root, component) => {
+  document.getElementById(root).append(component.render());
+};
 
 const mock = {
   "leagues": [
@@ -310,6 +328,14 @@ const bootstrap = () => {
       console.log(state);
     })
     .catch(err => console.error(err))
+  
+  const router = new Router(new TestComponent(), {
+    '/': new TestComponent(),
+    '/season_predictions': new TestComponent2()
+  });
+
+  renderDom('app', router);
+  window.setTimeout(goToSeasonPredictions, 2000);
 }
 
 bootstrap();
