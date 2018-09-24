@@ -1,7 +1,8 @@
+import { renderDom } from './lib/dom.js';
+import { goToHome, goToSeasonPredictions } from './services/routerService.js';
 import League from './model/league.js';
 import Player from './model/player.js';
 import Router from './containers/router.js';
-import { goToHome, goToSeasonPredictions } from './services/routerService.js';
 import Team from './model/team.js';
 
 class TestComponent {
@@ -16,9 +17,7 @@ class TestComponent2 {
   }
 }
 
-const renderDom = (root, component) => {
-  document.getElementById(root).append(component.render());
-};
+
 
 const mock = {
   "leagues": [
@@ -293,41 +292,47 @@ const mock = {
 var state = {};
 
 const bootstrap = () => {
-  const _buildLeagues = data => Promise.resolve(data.leagues.map(league => new League(league)));
+  // const _buildLeagues = data => Promise.resolve(data.leagues.map(league => new League(league)));
 
-  const _buildTeams = data => new Promise(resolve => {
-    let teams = {};
+  // const _buildTeams = data => new Promise(resolve => {
+  //   let teams = {};
     
-    data.leagues.forEach(league => {
-      teams[league.leagueId] = league.teams.map(team => new Team(team, league.leagueName));
-    });
+  //   data.leagues.forEach(league => {
+  //     teams[league.leagueId] = league.teams.map(team => new Team(team, league.leagueName));
+  //   });
 
-    resolve(teams);
-  });
+  //   resolve(teams);
+  // });
 
-  const _buildPlayers = data => new Promise(resolve => {
-    let players = {};
+  // const _buildPlayers = data => new Promise(resolve => {
+  //   let players = {};
     
-    data.leagues.forEach(league => {
-      league.teams.forEach(team => {
-        players[team.teamId] = team.topPlayers.map(player => new Player(player, team.teamName, league.leagueName));
-      })
-    });
+  //   data.leagues.forEach(league => {
+  //     league.teams.forEach(team => {
+  //       players[team.teamId] = team.topPlayers.map(player => new Player(player, team.teamName, league.leagueName));
+  //     })
+  //   });
     
-    resolve(players);
-  });
-  //request data TODO replace for server request
-  const data = mock;
-  const promises = [_buildLeagues(data), _buildTeams(data), _buildPlayers(data)];
-  Promise.all(promises)
-    .then(result => {
-      state.leagues = result[0];
-      state.teams = result[1];
-      state.players = result[2];
+  //   resolve(players);
+  // });
+  // //request data TODO replace for server request
+  // const data = mock;
+  // const promises = [_buildLeagues(data), _buildTeams(data), _buildPlayers(data)];
+  // Promise.all(promises)
+  //   .then(result => {
+  //     state.leagues = result[0];
+  //     state.teams = result[1];
+  //     state.players = result[2];
 
-      console.log(state);
-    })
-    .catch(err => console.error(err))
+  //     console.log(state);
+  //   })
+  //   .catch(err => console.error(err))
+  
+
+  
+  
+  
+  
   
   const router = new Router(new TestComponent(), {
     '/': new TestComponent(),
