@@ -1,22 +1,28 @@
-export default class Router {
+import Component from '../lib/component.js';
+
+export default class Router extends Component {
   constructor(home, routes) {
     //Init listener for location change
+    super();
     window.addEventListener('popstate', this._locationChangeCallback.bind(this));
-    this.home = home;
-    this.routes = routes;
+    this.state = {
+      home: home,
+      routes: routes,
+      selectedRoute: routes[location.pathname]
+    };
   }
 
-  render(child) {
-    const childComponent = child || this.home;
-    let parentDiv = document.createElement('div');
-    parentDiv.append(childComponent.render());
-    return parentDiv;
+  render() {
+    const childComponent = this.state.selectedRoute || this.state.home;
+    const template = '<div>' + childComponent + '</div>';
+    return template;
   }
 
   _locationChangeCallback(event) {
+    //TODO 404
     if (!(event && event.target && event.target.location && event.target.location.pathname)) return;
-
-    const childComponent = this.routes[event.target.location.pathname];
-    this.render(childComponent);
+    this.setState({
+      selectedRoute: this.state.routes[event.target.location.pathname]
+    });
   }
 }
