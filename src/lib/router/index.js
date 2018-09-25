@@ -1,4 +1,4 @@
-import Component from '../lib/component.js';
+import Component from '../dom/component.js';
 
 export default class Router extends Component {
   constructor(home, routes) {
@@ -26,3 +26,15 @@ export default class Router extends Component {
     });
   }
 }
+
+export const goTo = (delta, state) => {
+  history.pushState(state, '', delta)
+  const popStateEvent = new PopStateEvent('popstate', { state });
+  window.dispatchEvent(popStateEvent);
+};
+
+export const replace = (delta, state) => {
+  history.replaceState(state, '', delta)
+  const popStateEvent = new PopStateEvent('popstate', { state });
+  window.dispatchEvent(popStateEvent);
+};

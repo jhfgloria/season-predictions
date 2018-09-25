@@ -1,5 +1,5 @@
-import Component from '../lib/component.js';
-import Router from './router.js';
+import Component from '../lib/dom/component.js';
+import Router from '../lib/router';
 
 class TestComponent extends Component {
   render() {
