@@ -7,14 +7,13 @@ export default class Component {
   }
 
   _hiddenRender() {
-    const outerElement = document.createElement('div');
-    outerElement.id = this.identifier;
-    outerElement.append(this.render());
-    return outerElement;
+    const unidentifiedHtml = this.render();
+    //Another awful hack... TODO review this
+    return unidentifiedHtml.replace('>', ` data-component='${this.constructor.name}' data-id='${this.identifier}'>`);
   }
 
   _update() {
-    const outerElement = document.getElementById(this.identifier);
+    const outerElement = document.querySelector(`[data-id='${this.identifier}']`);
     outerElement.innerHTML = this.render();
   }
 

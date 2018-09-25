@@ -10,6 +10,6 @@ export default class SplashScreen extends Component {
   }
 
   render() {
-    return 'SEASON PREDICTIONS';
+    return `<h1>SEASON PREDICTIONS</h1>`;
   }
 }
