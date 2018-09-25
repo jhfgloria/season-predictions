@@ -1,5 +1,5 @@
 import Component from '../lib/dom/component.js';
-import League from '../model/league.js';
+import SplashScreen from './splasScreen';
 import LeagueList from './leaguesList';
 import Router from '../lib/router';
 import { bootstrap, buildLeagues, buildTeams, buildPlayers } from '../services/bootstrapService.js';
@@ -13,7 +13,10 @@ class TestComponent extends Component {
 export default class App extends Component {
   constructor() {
     super();
-    this.state = { loading: true };
+    this.state = {
+      splashing: true, 
+      loading: true 
+    };
     bootstrap()
       .then(response => {
         const { data } = response;
@@ -30,16 +33,25 @@ export default class App extends Component {
       })
       .catch(err => { console.error(err); })
   }
+
+  onSplashScreenLeaving() {
+    this.setState({
+      splashing: false
+    });
+  }
   
   render() {
-    if (this.state.loading) {
+    if (this.state.splashing) {
+      return `<div>${new SplashScreen(3000, this.onSplashScreenLeaving.bind(this))}</div>`;
+    }
+    else if (this.state.loading) {
       return `<h1>Loading</h1>`
     } else {
+      const homeComponent = new LeagueList(this.state.leagues);
       const router = new Router(
-        new TestComponent(), 
+        homeComponent, 
         {
-          '/': new TestComponent(),
-          '/season_predictions': new LeagueList(this.state.leagues)
+          '/': homeComponent
         }
       );
       return `<div>${router}</div>`;
