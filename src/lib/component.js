@@ -2,8 +2,8 @@ import uuidv1 from 'uuid/v1.js';
 
 export default class Component {
   constructor() {
-    this.state = {};
     this.identifier = uuidv1();
+    this.state = {};
   }
 
   _hiddenRender() {

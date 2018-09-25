@@ -1,20 +1,7 @@
-import Component from './lib/component.js';
-import Router from './containers/router.js';
+import App from './containers/app.js';
 import { bootstrap, buildLeagues, buildTeams, buildPlayers } from './services/bootstrapService.js';
 import { goToHome, goToSeasonPredictions } from './services/routerService.js';
 import { renderDom } from './lib/dom.js';
-
-class TestComponent extends Component {
-  render() {
-    return 'test 1';
-  }
-}
-
-class TestComponent2 extends Component {
-  render() {
-    return 'test 2';
-  }
-}
 
 const _bootstrap = () => {
   let state;
@@ -26,17 +13,6 @@ const _bootstrap = () => {
       Promise.all(promises)
         .then(result => {
           state = result;
-          
-          const router = new Router(
-            new TestComponent(), 
-            {
-              '/': new TestComponent(),
-              '/season_predictions': new TestComponent2()
-            }
-          );
-
-          renderDom('app', router);
-          window.setTimeout(goToSeasonPredictions, 2000);
         })
         .catch(err => console.err)
     })
@@ -44,3 +20,5 @@ const _bootstrap = () => {
 }
 
 _bootstrap();
+renderDom('app', new App());
+window.setTimeout(goToSeasonPredictions, 2000);
