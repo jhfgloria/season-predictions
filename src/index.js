@@ -1,4 +1,4 @@
-import App from './containers/app.js';
+import App from './ui/app.js';
 import { bootstrap, buildLeagues, buildTeams, buildPlayers } from './services/bootstrapService.js';
 import { goToHome, goToSeasonPredictions } from './services/routerService.js';
 import { renderDom } from './lib/dom/dom.js';
