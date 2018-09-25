@@ -19,7 +19,8 @@ module.exports = {
   },
   devServer: {
     port: 3000,
-    historyApiFallback: true
+    historyApiFallback: true,
+    headers: { 'Access-Control-Allow-Origin': 'https://s3-eu-west-1.amazonaws.com/' }
   },
   plugins: [
     htmlWebPackPlugin
