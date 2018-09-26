@@ -12,6 +12,6 @@ export default class League extends Component {
   }
 
   render () {
-    return li(this.state.leagueName);
+    return li(this.state.leagueName).click(() => alert('hello world'));
   }
 }

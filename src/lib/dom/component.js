@@ -7,7 +7,7 @@ export default class Component {
   }
 
   _hiddenRender() {
-    const topElement = this.render();
+    const topElement = this.render().element;
     topElement.setAttribute('data-component', this.constructor.name);
     topElement.setAttribute('data-id', this.identifier);
     return topElement;
