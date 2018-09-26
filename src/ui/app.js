@@ -3,12 +3,7 @@ import SplashScreen from './splasScreen';
 import LeagueList from './leaguesList';
 import Router from '../lib/router';
 import { bootstrap, buildLeagues, buildTeams, buildPlayers } from '../services/bootstrapService.js';
-
-class TestComponent extends Component {
-  render() {
-    return 'test 1';
-  }
-}
+import { div, h1, span } from '../lib/dom/dom.js';
 
 export default class App extends Component {
   constructor() {
@@ -42,10 +37,11 @@ export default class App extends Component {
   
   render() {
     if (this.state.splashing) {
-      return `<div>${new SplashScreen(3000, this.onSplashScreenLeaving.bind(this))}</div>`;
-    }
-    else if (this.state.loading) {
-      return `<h1>Loading</h1>`
+      return div(
+        new SplashScreen(1000, this.onSplashScreenLeaving.bind(this))
+      );
+    } else if (this.state.loading) {
+      return h1('Loading');
     } else {
       const homeComponent = new LeagueList(this.state.leagues);
       const router = new Router(
@@ -54,7 +50,7 @@ export default class App extends Component {
           '/': homeComponent
         }
       );
-      return `<div>${router}</div>`;
+      return div(router);
     }
   }
 }

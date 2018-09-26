@@ -1,4 +1,5 @@
 import Component from '../../lib/dom/component.js';
+import { li } from '../../lib/dom/dom.js';
 
 export default class League extends Component {
   constructor({ leagueId, leagueName, country }) {
@@ -11,6 +12,6 @@ export default class League extends Component {
   }
 
   render () {
-    return `<li>${this.state.leagueName}</li>`;
+    return li(this.state.leagueName);
   }
 }

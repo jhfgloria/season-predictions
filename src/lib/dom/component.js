@@ -7,26 +7,20 @@ export default class Component {
   }
 
   _hiddenRender() {
-    const unidentifiedHtml = this.render();
-    //Another awful hack... TODO review this
-    return unidentifiedHtml.replace('>', ` data-component='${this.constructor.name}' data-id='${this.identifier}'>`);
+    const topElement = this.render();
+    topElement.setAttribute('data-component', this.constructor.name);
+    topElement.setAttribute('data-id', this.identifier);
+    return topElement;
   }
 
   _update() {
     const outerElement = document.querySelector(`[data-id='${this.identifier}']`);
-    outerElement.innerHTML = this.render();
+    outerElement.replaceWith(this._hiddenRender());
   }
 
   setState(newState) {
     this.state = { ...this.state, ...newState };
     this._update();
-  }
-
-  toString() {
-    //Not my favorite hack ever, but... TODO review this
-    const wrapper = document.createElement('div');
-    wrapper.append(this._hiddenRender());
-    return wrapper.innerHTML.replace(/&lt;/g, '<').replace(/&gt;/g, '>');
   }
 
   render() {

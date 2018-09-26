@@ -1,5 +1,6 @@
 import Component from '../../lib/dom/component';
 import { goToLeagues } from '../../services/routerService.js';
+import { h1 } from '../../lib/dom/dom.js';
 
 export default class SplashScreen extends Component {
   constructor(splashTime, onLeave) {
@@ -10,6 +11,6 @@ export default class SplashScreen extends Component {
   }
 
   render() {
-    return `<h1>SEASON PREDICTIONS</h1>`;
+    return h1('SEASON PREDICTIONS');
   }
 }

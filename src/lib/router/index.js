@@ -1,21 +1,21 @@
 import Component from '../dom/component.js';
+import { div } from '../dom/dom.js';
 
 export default class Router extends Component {
   constructor(home, routes) {
-    //Init listener for location change
     super();
-    window.addEventListener('popstate', this._locationChangeCallback.bind(this));
     this.state = {
       home: home,
       routes: routes,
       selectedRoute: routes[location.pathname]
     };
+    //Init listener for location change
+    window.addEventListener('popstate', this._locationChangeCallback.bind(this));
   }
 
   render() {
     const childComponent = this.state.selectedRoute || this.state.home;
-    const template = '<div>' + childComponent + '</div>';
-    return template;
+    return div(childComponent);
   }
 
   _locationChangeCallback(event) {
