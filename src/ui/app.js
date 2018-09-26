@@ -1,4 +1,5 @@
 import Component from '../lib/dom/component.js';
+import SeasonPredictions from './seasonPredictions';
 import SplashScreen from './splasScreen';
 import LeagueList from './leaguesList';
 import Router from '../lib/router';
@@ -47,7 +48,8 @@ export default class App extends Component {
       const router = new Router(
         homeComponent, 
         {
-          '/': homeComponent
+          '/': homeComponent,
+          '/season_predictions': new SeasonPredictions()
         }
       );
       return div(router);
