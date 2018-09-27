@@ -1,9 +1,34 @@
 import uuidv1 from 'uuid/v1.js';
 
+class ComponentStore {
+  constructor() {
+    this.components = {};
+  }
+
+  addComponent(component) {
+    this.components[component.identifier] = component;
+  }
+
+  removeComponent(identifier) {
+    delete this.components[identifier];
+  }
+
+  removeDereferenced() {
+    const referencedIdentifiers = Array.prototype.slice.call(document.querySelectorAll('[data-id]'))
+      .map(el => el.getAttribute('data-id'));
+    Object.keys(this.components).forEach(identifier => {
+      if (referencedIdentifiers.indexOf(identifier) === -1) this.removeComponent(identifier);
+    });
+  }
+}
+
+const componentStore = new ComponentStore();
+
 export default class Component {
   constructor() {
     this.identifier = uuidv1();
     this.state = {};
+    componentStore.addComponent(this);
   }
 
   _hiddenRender() {
@@ -15,7 +40,9 @@ export default class Component {
 
   _update() {
     const outerElement = document.querySelector(`[data-id='${this.identifier}']`);
-    outerElement.replaceWith(this._hiddenRender());
+    //May already been dereferenced
+    outerElement && outerElement.replaceWith(this._hiddenRender());
+    componentStore.removeDereferenced();
   }
 
   setState(newState) {
