@@ -1,12 +1,25 @@
 import Component from '../../lib/dom/component.js';
-import { h1 } from '../../lib/dom/dom.js';
+import { goToPlayers, goToTeams } from '../../services/routerService.js';
+import { h1, h3, input, li, ol, span } from '../../lib/dom/dom.js';
 
 export default class SeasonPredictions extends Component {
-  constructor(teams) {
+  constructor() {
     super();
   }
 
   render() {
-    return h1('Al\'right!!!');
+    return span(
+      h1('Season prediction'),
+      h3('Top 3 teams:'),
+      ol([
+        li(input(null, 'Select a team', true)).click(() => goToTeams()),
+        li(input(null, 'Select a team', true)).click(() => goToTeams()),
+        li(input(null, 'Select a team', true)).click(() => goToTeams())
+      ]),
+      h3('Best player of the season:'),
+      ol([
+        li(input(null, 'Select a player', true)).click(() => goToPlayers())
+      ])
+    );
   }
 }

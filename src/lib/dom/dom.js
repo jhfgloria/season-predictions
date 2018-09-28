@@ -48,10 +48,24 @@ export const ul = (list) => {
   return new HTMLDivElementWapper(ul);
 };
 
+export const ol = (list) => {
+  const ol = document.createElement('ol');
+  list.forEach(li => { _genericAppend(ol, li); });
+  return new HTMLDivElementWapper(ol);
+};
+
 export const li = (element) => {
   const li = document.createElement('li');
   _genericAppend(li, element);
   return new HTMLDivElementWapper(li);
+};
+
+export const input = (value, placeholder, readOnly) => {
+  const input = document.createElement('input');
+  input.value = value;
+  input.placeholder = placeholder;
+  input.readOnly = readOnly;
+  return new HTMLDivElementWapper(input);
 };
 
 export const h1 = (text) => {
@@ -59,4 +73,18 @@ export const h1 = (text) => {
   const content = document.createTextNode(text);
   h1.append(content);
   return new HTMLDivElementWapper(h1);
+};
+
+export const h2 = (text) => {
+  const h2 = document.createElement('h2');
+  const content = document.createTextNode(text);
+  h2.append(content);
+  return new HTMLDivElementWapper(h2);
+};
+
+export const h3 = (text) => {
+  const h3 = document.createElement('h3');
+  const content = document.createTextNode(text);
+  h3.append(content);
+  return new HTMLDivElementWapper(h3);
 };
