@@ -25,7 +25,8 @@ class ComponentStore {
 const componentStore = new ComponentStore();
 
 export default class Component {
-  constructor() {
+  constructor(obj) {
+    this.props = obj || {};
     this.identifier = uuidv1();
     this.state = {};
     componentStore.addComponent(this);

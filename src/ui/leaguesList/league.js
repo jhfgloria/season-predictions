@@ -3,16 +3,17 @@ import { li } from '../../lib/dom/dom.js';
 import { goToSeasonPredictions } from '../../services/routerService.js';
 
 export default class League extends Component {
-  constructor({ leagueId, leagueName, country }) {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      leagueId: leagueId,
-      leagueName: leagueName,
-      country: country
+      leagueId: this.props.leagueId,
+      leagueName: this.props.leagueName,
+      country: this.props.country
     };
   }
 
   render () {
-    return li(this.state.leagueName).click(() => goToSeasonPredictions());
+    return li(this.state.leagueName)
+      .click(() => goToSeasonPredictions({ leagueId: this.state.leagueId }));
   }
 }

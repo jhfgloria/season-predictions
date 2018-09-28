@@ -3,18 +3,15 @@ import League from './league.js';
 import { span, h1, ul } from '../../lib/dom/dom.js';
 
 export default class LeaguesList extends Component {
-  constructor(leagues) {
-    super();
-    this.state = {
-      leagues: leagues
-    };
+  constructor(props) {
+    super(props);
   }
 
   render() {
     return (
       span(
         h1('Leagues'),
-        ul(this.state.leagues.map(league => new League(league)))
+        ul(this.props.leagues.map(league => new League(league)))
       )
     );
   }

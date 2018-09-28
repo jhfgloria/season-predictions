@@ -2,19 +2,18 @@ import Component from '../dom/component.js';
 import { div } from '../dom/dom.js';
 
 export default class Router extends Component {
-  constructor(home, routes) {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      home: home,
-      routes: routes,
-      selectedRoute: routes[location.pathname]
+      selectedRoute: this.props.routes[location.pathname]
     };
     //Init listener for location change
     window.addEventListener('popstate', this._locationChangeCallback.bind(this));
   }
 
   render() {
-    const childComponent = this.state.selectedRoute || this.state.home;
+    const childComponent = this.state.selectedRoute || this.props.home;
+    childComponent.props.history = this.state.history;
     return div(childComponent);
   }
 
@@ -22,7 +21,8 @@ export default class Router extends Component {
     //TODO 404
     if (!(event && event.target && event.target.location && event.target.location.pathname)) return;
     this.setState({
-      selectedRoute: this.state.routes[event.target.location.pathname]
+      history: event.state,
+      selectedRoute: this.props.routes[event.target.location.pathname]
     });
   }
 }
