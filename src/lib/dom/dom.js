@@ -60,11 +60,12 @@ export const li = (element) => {
   return new HTMLDivElementWapper(li);
 };
 
-export const input = (value, placeholder, readOnly) => {
+export const input = (value, placeholder, readOnly, type = 'input') => {
   const input = document.createElement('input');
   input.value = value;
   input.placeholder = placeholder;
   input.readOnly = readOnly;
+  input.type = type;
   return new HTMLDivElementWapper(input);
 };
 

@@ -1,32 +1,32 @@
 import Component from '../../lib/dom/component.js';
-import { getTeams } from '../../services/apiService.js';
-import { h1, h3, input, ul, li, ol, span } from '../../lib/dom/dom.js';
-import { predictTopTeam } from '../../services/predictionService.js';
+import { getPlayers } from '../../services/apiService.js';
 import { replaceHome, replaceSeasonPredictions } from '../../services/routerService.js';
+import { h1, h3, input, ul, li, ol, span } from '../../lib/dom/dom.js';
+import { predictTopPlayer } from '../../services/predictionService.js';
 
-export default class TeamsList extends Component {
+export default class PlayersList extends Component {
   constructor(props) {
     super(props);
     if (this.props.history) {
       this.state = {
-        teams: getTeams(this.props.history.leagueId)
+        players: getPlayers(this.props.history.leagueId)
       };
     } else {
       replaceHome();
     }
   }
 
-  predict(team, place) {
-    predictTopTeam(team, place, this.props.history.leagueId);
+  predict(player) {
+    predictTopPlayer(player, this.props.history.leagueId);
     replaceSeasonPredictions({ leagueId: this.props.history.leagueId });
   }
 
   render() {
-    if (this.state.teams) {
+    if (this.state.players) {
       return (
         span(
-          h1('Teams'),
-          ul(this.state.teams.map(team => li(team.teamName).click(() => this.predict(team, this.props.history.place)))),
+          h1('Top Players'),
+          ul(this.state.players.map(player => li(player.playerName).click(() => this.predict(player)))),
           input('Back', null, false, 'button').click(() => replaceSeasonPredictions({ leagueId: this.props.history.leagueId }))
         )
       );

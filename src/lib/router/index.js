@@ -20,8 +20,8 @@ export default class Router extends Component {
   }
 
   render() {
-    const childComponent = this.state.selectedRoute || this.props.home;
-    childComponent.props.history = this.state.history;
+    const childComponent = new this.state.selectedRoute({ history: this.state.history }) || 
+                           new this.props.homeComponent({ history: this.state.history });
     return div(childComponent);
   }
 
@@ -36,17 +36,21 @@ export default class Router extends Component {
 }
 
 export const goTo = (delta, state) => {
-  let newDelta;
-  Object.keys(state).forEach(key => { newDelta = delta.replace(`{${key}}`, state[key]); });
+  let newDelta = delta;
+  state && Object.keys(state).forEach(key => { newDelta = newDelta.replace(`{${key}}`, state[key]); });
   history.pushState(state, '', newDelta);
   const popStateEvent = new PopStateEvent('popstate', { state });
   window.dispatchEvent(popStateEvent);
 };
 
 export const replace = (delta, state) => {
-  let newDelta;
-  Object.keys(state).forEach(key => { newDelta = delta.replace(`{${key}}`, state[key]); });
+  let newDelta = delta;
+  state && Object.keys(state).forEach(key => { newDelta = newDelta.replace(`{${key}}`, state[key]); });
   history.replaceState(state, '', newDelta);
   const popStateEvent = new PopStateEvent('popstate', { state });
   window.dispatchEvent(popStateEvent);
+};
+
+export const goBack = () => {
+  history.goBack();
 };

@@ -1,10 +1,11 @@
 import Component from '../lib/dom/component.js';
+import LeagueList from './leaguesList';
+import PlayersList from './playersList';
+import Router from '../lib/router';
 import SeasonPredictions from './seasonPredictions';
 import SplashScreen from './splasScreen';
-import LeagueList from './leaguesList';
-import Router from '../lib/router';
 import TeamsList from './teamsList';
-import { bootstrap, buildLeagues, buildTeams, buildPlayers } from '../services/bootstrapService.js';
+import { bootstrap, buildLeagues, buildTeams, buildPlayers } from '../services/apiService.js';
 import { div, h1 } from '../lib/dom/dom.js';
 
 export default class App extends Component {
@@ -14,21 +15,13 @@ export default class App extends Component {
       splashing: true, 
       loading: true 
     };
-    bootstrap()
-      .then(response => {
-        const { data } = response;
-        Promise.all([buildLeagues(data), buildTeams(data), buildPlayers(data)])
-          .then(result => {
-            this.setState({
-              leagues: result[0],
-              teams: result[1],
-              players: result[2],
-              loading: false
-            });
-          })
-          .catch(err => { console.error(err); })
-      })
-      .catch(err => { console.error(err); })
+    bootstrap().then(response => { 
+      this.setState({
+        loading: false
+      });
+    }).catch(error => { 
+      console.error(error); 
+    });
   }
 
   onSplashScreenLeaving() {
@@ -45,13 +38,14 @@ export default class App extends Component {
     } else if (this.state.loading) {
       return h1('Loading');
     } else {
-      const homeComponent = new LeagueList({ leagues: this.state.leagues });
+      const homeComponent = LeagueList;
       const router = new Router({
         homeComponent: homeComponent, 
         routes: {
           '/': homeComponent,
-          '/season_predictions/{leagueId}': new SeasonPredictions({ teams: this.state.teams }),
-          '/season_predictions/{leagueId}/teams': new TeamsList()
+          '/season_predictions/{leagueId}': SeasonPredictions,
+          '/season_predictions/{leagueId}/teams': TeamsList,
+          '/season_predictions/{leagueId}/players': PlayersList 
         }
       });
       return div(router);
