@@ -69,7 +69,7 @@ export default class SeasonPredictions extends Component {
               true
             )).click(() => goToTeams({ leagueId: this.props.history.leagueId, place: 3 }))
         ]),
-        input('Clear', null, false, 'button').click(() => this.clearTopTeamsPredictions()),
+        input('Clear', null, false, 'button').click(() => this.clearTopTeamsPredictions()).className('ui button'),
         h3('Best player of the season:'),
         ol([
           li(

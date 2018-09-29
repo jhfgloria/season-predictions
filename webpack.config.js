@@ -11,9 +11,19 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        use: {
-          loader: "babel-loader"
-        }
+        use: { loader: "babel-loader" }
+      },
+      { 
+        test: /(\.css$)/, 
+        use: [
+          { loader: 'style-loader' }, 
+          { loader: 'css-loader' }, 
+          { loader: 'sass-loader' }
+        ] 
+      }, 
+      { 
+        test: /\.(png|woff|woff2|eot|ttf|svg)$/, 
+        use: { loader: 'url-loader?limit=100000' }
       }
     ]
   },

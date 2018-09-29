@@ -1,3 +1,5 @@
+import '../style/semantic.2.4.0/semantic.min.css';
+
 import Component from '../lib/dom/component.js';
 import LeagueList from './leaguesList';
 import PlayersList from './playersList';

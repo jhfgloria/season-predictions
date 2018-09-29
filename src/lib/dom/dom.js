@@ -22,6 +22,11 @@ class HTMLDivElementWapper {
   click(listener) {
     return this.addEventListener('click', listener);
   }
+
+  className(classes) {
+    this.element.className = classes;
+    return this;
+  }
 }
 
 const _genericAppend = (parent, child) => {
