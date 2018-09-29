@@ -3,6 +3,7 @@ import SeasonPredictions from './seasonPredictions';
 import SplashScreen from './splasScreen';
 import LeagueList from './leaguesList';
 import Router from '../lib/router';
+import TeamsList from './teamsList';
 import { bootstrap, buildLeagues, buildTeams, buildPlayers } from '../services/bootstrapService.js';
 import { div, h1 } from '../lib/dom/dom.js';
 
@@ -49,7 +50,8 @@ export default class App extends Component {
         homeComponent: homeComponent, 
         routes: {
           '/': homeComponent,
-          '/season_predictions': new SeasonPredictions({ teams: this.state.teams })
+          '/season_predictions/{leagueId}': new SeasonPredictions({ teams: this.state.teams }),
+          '/season_predictions/{leagueId}/teams': new TeamsList()
         }
       });
       return div(router);

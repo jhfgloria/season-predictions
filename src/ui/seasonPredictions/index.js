@@ -12,13 +12,13 @@ export default class SeasonPredictions extends Component {
       h1('Season prediction'),
       h3('Top 3 teams:'),
       ol([
-        li(input(null, 'Select a team', true)).click(() => goToTeams()),
-        li(input(null, 'Select a team', true)).click(() => goToTeams()),
-        li(input(null, 'Select a team', true)).click(() => goToTeams())
+        li(input(null, 'Select a team', true)).click(() => goToTeams({leagueId: 1})),
+        li(input(null, 'Select a team', true)).click(() => goToTeams({leagueId: 1})),
+        li(input(null, 'Select a team', true)).click(() => goToTeams({leagueId: 1}))
       ]),
       h3('Best player of the season:'),
       ol([
-        li(input(null, 'Select a player', true)).click(() => goToPlayers())
+        li(input(null, 'Select a player', true)).click(() => goToPlayers({leagueId: 1}))
       ])
     );
   }
