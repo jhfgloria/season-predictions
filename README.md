@@ -10,3 +10,7 @@ Footbal leagues top 3 and top scorer predicitons app
 
 - `npm start` : starts the app in a local browser using webpack-dev-server. Port 3000 used
 - `npm run build` : compiles and builds app into /dist folder 
+
+## Tested browsers
+
+- Chrome 68
