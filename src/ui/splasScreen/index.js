@@ -1,5 +1,5 @@
 import Component from '../../lib/dom/component';
-import { h1 } from '../../lib/dom/dom.js';
+import { h1, div} from '../../lib/dom/dom.js';
 
 export default class SplashScreen extends Component {
   constructor(props) {
@@ -10,6 +10,12 @@ export default class SplashScreen extends Component {
   }
 
   render() {
-    return h1('SEASON PREDICTIONS');
+    return div(
+      div(
+        div(
+          h1('SEASON PREDICTIONS').className('text-align-center')
+        ).className('column ')
+      ).className('ui middle aligned row')
+    ).className('ui column centered grid tall-height')
   }
 }

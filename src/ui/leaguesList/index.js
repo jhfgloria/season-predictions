@@ -1,7 +1,7 @@
 import Component from '../../lib/dom/component.js';
 import League from './league.js';
+import { div, h1, span, ul } from '../../lib/dom/dom.js';
 import { getLeagues } from '../../services/apiService';
-import { h1, span, ul } from '../../lib/dom/dom.js';
 
 export default class LeaguesList extends Component {
   constructor(props) {
@@ -15,7 +15,8 @@ export default class LeaguesList extends Component {
     return (
       span(
         h1('Leagues'),
-        ul(this.state.leagues.map(league => new League(league)))
+        div(...this.state.leagues.map(league => new League(league)))
+          .className('ui large middle aligned animated relaxed divided list wide-width')
       )
     );
   }

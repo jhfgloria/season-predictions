@@ -1,6 +1,7 @@
 import Component from '../../lib/dom/component.js';
+import Team from './team.js';
 import { getTeams } from '../../services/apiService.js';
-import { h1, h3, input, ul, li, ol, span } from '../../lib/dom/dom.js';
+import { div, h1, h3, input, ul, li, ol, span } from '../../lib/dom/dom.js';
 import { predictTopTeam } from '../../services/predictionService.js';
 import { replaceHome, replaceSeasonPredictions } from '../../services/routerService.js';
 
@@ -8,8 +9,11 @@ export default class TeamsList extends Component {
   constructor(props) {
     super(props);
     if (this.props.history) {
+      const teams = getTeams(this.props.history.leagueId).sort((teamA, teamB) => {
+        return (teamA.teamName > teamB.teamName) - (teamA.teamName < teamB.teamName)
+      })
       this.state = {
-        teams: getTeams(this.props.history.leagueId)
+        teams: teams
       };
     } else {
       replaceHome();
@@ -24,11 +28,18 @@ export default class TeamsList extends Component {
   render() {
     if (this.state.teams) {
       return (
-        span(
-          h1('Teams'),
-          ul(this.state.teams.map(team => li(team.teamName).click(() => this.predict(team, this.props.history.place)))),
-          input('Back', null, false, 'button').click(() => replaceSeasonPredictions({ leagueId: this.props.history.leagueId }))
-        )
+        div(
+          div(
+            h1('Teams'),
+          ).className('row'),
+          div(
+            div(...this.state.teams.map(team => new Team({ team: team, onClick: () => this.predict(team, this.props.history.place) })))
+              .className('ui large middle aligned animated relaxed divided list wide-width'),
+          ).className('row'),
+          div(
+            input('Back', null, false, 'button').click(() => replaceSeasonPredictions({ leagueId: this.props.history.leagueId })).className('ui button')
+          ).className('row')
+        ).className('ui grid container')
       );
     } else {
       return span();

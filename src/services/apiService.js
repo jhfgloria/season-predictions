@@ -33,7 +33,7 @@ export const getPlayers = leagueId => {
   const league = response.data.leagues.find(league => league.leagueId === leagueId);
   let players = [];
   league.teams.forEach(team => {
-    team.topPlayers.forEach(player => players.push(new Player(player)))
+    team.topPlayers.forEach(player => players.push(new Player(player, team.teamName, league.leagueName)))
   });
   return players;
 }

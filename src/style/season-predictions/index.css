@@ -1,0 +1,28 @@
+body {
+  background-color: #f3f3f3;
+  padding-top: 2vh;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.wide-width {
+  width: 100%;
+}
+
+.tall-height {
+  height: 100%;
+}
+
+.text-align-right {
+  text-align: right;
+}
+
+.text-align-center {
+  text-align: center;
+}
+
+.space-bottom {
+  margin-bottom: 15px;
+}

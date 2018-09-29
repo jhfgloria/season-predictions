@@ -27,6 +27,11 @@ class HTMLDivElementWapper {
     this.element.className = classes;
     return this;
   }
+
+  style(style) {
+    this.element.style = style;
+    return this;
+  }
 }
 
 const _genericAppend = (parent, child) => {
@@ -94,3 +99,12 @@ export const h3 = (text) => {
   h3.append(content);
   return new HTMLDivElementWapper(h3);
 };
+
+export const text = (content) => {
+  return document.createTextNode(content);
+}
+
+export const i = () => {
+  const i = document.createElement('i');
+  return new HTMLDivElementWapper(i);
+}

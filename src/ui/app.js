@@ -1,4 +1,5 @@
 import '../style/semantic.2.4.0/semantic.min.css';
+import '../style/season-predictions/index.css';
 
 import Component from '../lib/dom/component.js';
 import LeagueList from './leaguesList';
@@ -33,15 +34,16 @@ export default class App extends Component {
   }
   
   render() {
+    let component;
     if (this.state.splashing) {
-      return div(
+      component = div(
         new SplashScreen({ splashTime: 1000, onLeave: this.onSplashScreenLeaving.bind(this) })
-      );
+      ).className('middle aligned row tall-height');
     } else if (this.state.loading) {
-      return h1('Loading');
+      component = h1('Loading');
     } else {
       const homeComponent = LeagueList;
-      const router = new Router({
+      component = new Router({
         homeComponent: homeComponent, 
         routes: {
           '/': homeComponent,
@@ -50,7 +52,11 @@ export default class App extends Component {
           '/season_predictions/{leagueId}/players': PlayersList 
         }
       });
-      return div(router);
     }
+    return div(
+      div().className('four wide computer three wide tablet column'),
+      div(component).className('sixteen wide mobile eight wide computer ten wide tablet column'),
+      div().className('four wide computer column three wide tablet')
+    ).className('ui grid container tall-height');
   }
 }
