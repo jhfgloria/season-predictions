@@ -4,11 +4,30 @@ export const predictTopPlayer = (player, leagueId) => {
   localStorage.setItem(leagueId, JSON.stringify(predictions));
 };
 
+export const removeTopPlayerPrediction = (leagueId) => {
+  let predictions = JSON.parse(localStorage.getItem(leagueId)) || {};
+  predictions.topPlayer = null;
+  localStorage.setItem(leagueId, JSON.stringify(predictions));
+}
+
 export const predictTopTeam = (team, place, leagueId) => {
   let predictions = JSON.parse(localStorage.getItem(leagueId)) || {};
+  for (let i = 1; i < 4; i++) {
+    if (predictions[`top${i}`] && predictions[`top${i}`].teamId === team.teamId) {
+      predictions[`top${i}`] = null;
+    }
+  }
   predictions[`top${place}`] = team;
   localStorage.setItem(leagueId, JSON.stringify(predictions));
 };
+
+export const removeTopTeamsPrediction = (leagueId) => {
+  let predictions = JSON.parse(localStorage.getItem(leagueId)) || {};
+  for (let i = 1; i < 4; i++) {
+    predictions[`top${i}`] = null;
+  }
+  localStorage.setItem(leagueId, JSON.stringify(predictions));
+}
 
 export const getTopPlayerPredicition = (leagueId) => {
   let predictions = JSON.parse(localStorage.getItem(leagueId));
