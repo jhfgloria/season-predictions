@@ -16,3 +16,4 @@ Footbal leagues top 3 and top scorer predicitons app
 
 - Chrome 68
 - Microsoft Edge 42
+- Firefox Quantum 62
