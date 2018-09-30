@@ -31,13 +31,14 @@ export const removeTopTeamsPrediction = (leagueId) => {
 
 export const getTopPlayerPredicition = (leagueId) => {
   let predictions = JSON.parse(localStorage.getItem(leagueId));
-  return predictions && predictions.topPlayer;
+  return (predictions && predictions.topPlayer) || null;
 }
 
 export const getTopTeamsPredicition = (leagueId) => {
   let predictions = JSON.parse(localStorage.getItem(leagueId));
   if (predictions) {
     const { top1, top2, top3 } = predictions;
-    return { top1, top2, top3 };
+    return { top1: top1 || null, top2: top2 || null, top3: top3 || null };
   }
+  return null;
 }
