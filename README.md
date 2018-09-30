@@ -15,3 +15,4 @@ Footbal leagues top 3 and top scorer predicitons app
 ## Tested browsers
 
 - Chrome 68
+- Microsoft Edge 42
